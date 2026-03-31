@@ -1,0 +1,86 @@
+
+<div style="overflow:auto;padding:4px 2px;background:var(--color-background-primary)">
+<svg id="cm" xmlns="http://www.w3.org/2000/svg" width="660"></svg>
+</div>
+<script>
+const S=[
+  {name:"Afrika Savanı",kisi:"Beril",c:"#0F6E56",l:"#E1F5EE",
+   p:["Büyük Çiçekli Güzellik Çalısı","Bambu","Fırça Çalısı","Erguvan","Pampas Otu","Pampas Otu 'Rendalteri'","Herdem Yeşil Dağ Muşmulası","Arizona Servisi","Limoni Servi","Adi Servi","Drasena","Süs İğdesi","Okaliptüs","İrlanda Orman Sarmaşığı","Sarı Çiçekli Yasemin","Yayılıcı Ardıç","Sabin Ardıcı","Gerçek Lavanta","Japon Kutbağrı","Yeşil Japon Kutbağrı","Tespih Ağacı","Adi Dut","Cennet Bambusu","Alev Çalısı","Fıstık Çamı","Pitosporum","Bodur Pitosporum","Süs Eriği","Yaz Ilgını","Dar Yapraklı Ateş Dikeni","Gül","Adi Biberiye","Salkım Söğüt","Zeytin Çalısı","Batı Mazısı","Altuni Piramidal Mazı","Parlak Yapraklı Kartopu","Meksika Palmiyesi","Tropik Yukka"]},
+  {name:"Asya Filleri",kisi:"Doruk",c:"#185FA5",l:"#E6F1FB",
+   p:["Kokulu Mimoza","Gülibrişim","Şimşir","Fırça Çalısı","Akdeniz Servisi 'Totem'","Gold Taflan","Gravilla Çalısı","Orman Sarmaşığı","Dut","Alacalı Formiyum","Yalancı Akasya","Böğürtlen","Kırmızı Çiçekli Adaçayı","Beyaz Çiçekli Adaçayı","Defne Yapraklı Kartopu"]},
+  {name:"At-Lama",kisi:"Doruk",c:"#185FA5",l:"#E6F1FB",
+   p:["Melez Servi"]},
+  {name:"Çocuk Hayvanat Bahçesi",kisi:"Doruk",c:"#185FA5",l:"#E6F1FB",
+   p:["Drasena","Büyük Çiçekli Manolya"]},
+  {name:"Deve",kisi:"Doruk",c:"#185FA5",l:"#E6F1FB",
+   p:["Arizona Servisi (Glauca)","Kış Yasemini"]},
+  {name:"Geyik · Ceylan · Keçi",kisi:"Doruk",c:"#185FA5",l:"#E6F1FB",
+   p:["Japon Kadın Tuzluğu","Lawson Yalancı Servisi","Japon Şemsiyesi","Kuş İğdesi","Yabani Mersin","Saplı Meşe"]},
+  {name:"Göletler",kisi:"Kerem",c:"#7d5a00",l:"#FFF8DC",
+   p:["Deniz Ağacı","Kül Çiçeği","Ayva Ağacı","İncir","Dişbudak","Sarkık Dallı Dut","Çınar Yapraklı Dut","Doğu Çınarı"]},
+  {name:"İdari Bina",kisi:"Kerem",c:"#7d5a00",l:"#FFF8DC",
+   p:["Muşmula","Malta Eriği","Oya Ağacı","Badem Ağacı","Nar","Kocayemiş","Sarı Papatya","Hanımeli","Mor Salkım","Carex","Amerikan Sarmaşığı"]},
+  {name:"Yürüyüş & Bağlantı Yolları",kisi:"Kerem · Musa",c:"#7d5a00",l:"#FFF8DC",
+   p:["Bahar Dalı","Koyungözü","Yalancı Tarçın","Fil Kulağı","Tropik Palmiye","Salon Yaprağı","Japon Akubası"]},
+  {name:"Kaplan · Aslan · Puma",kisi:"Musa",c:"#993C1D",l:"#FAECE7",
+   p:["Agav","Gümüş Kenarlı Japon Taflanı","Bodur Meksika Petunyası","Bodrum Papatyası","Yalancı Palmiye"]},
+  {name:"Papağan",kisi:"Efe",c:"#534AB7",l:"#EEEDFE",
+   p:["Agapantus"]},
+  {name:"Sülün",kisi:"Efe",c:"#534AB7",l:"#EEEDFE",
+   p:["Pembe Rüya Çiçeği"]},
+  {name:"Lemur",kisi:"Efe",c:"#534AB7",l:"#EEEDFE",
+   p:["Hünnap","Elma","Armut","Kayısı"]},
+  {name:"Yırtıcı Kuşlar",kisi:"Efe",c:"#534AB7",l:"#EEEDFE",
+   p:["Sarılıcı Gül"]},
+];
+
+const LH=12,PAD=7,HDR=20,SECW=155,PLTW=220,SECX=165,PLTX=340,ROOTX=8,ROOTW=120,GAP=8,STARTY=28;
+function ph(n){return HDR+n*LH+PAD;}
+
+let y=STARTY;
+const layout=S.map(s=>{const h=ph(s.p.length);const row={...s,y,h};y+=h+GAP;return row;});
+const totalH=y+20;
+
+const svg=document.getElementById('cm');
+svg.setAttribute('height',totalH);
+
+let html=`<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+
+const r0=layout[0];const rN=layout[layout.length-1];
+const rcy0=r0.y+r0.h/2;const rcyN=rN.y+rN.h/2;
+const rcy=(rcy0+rcyN)/2;
+const rbh=rcyN-rcy0+40;const rby=rcy-rbh/2;
+
+// root box
+html+=`<rect x="${ROOTX}" y="${rby}" width="${ROOTW}" height="${rbh}" rx="6" fill="var(--color-background-secondary)" stroke="var(--color-border-primary)" stroke-width="0.5"/>`;
+html+=`<text x="${ROOTX+ROOTW/2}" y="${rcy-14}" text-anchor="middle" font-family="var(--font-sans)" font-size="10" font-weight="500" style="fill:var(--color-text-primary)">İzmir Doğal</text>`;
+html+=`<text x="${ROOTX+ROOTW/2}" y="${rcy}" text-anchor="middle" font-family="var(--font-sans)" font-size="10" font-weight="500" style="fill:var(--color-text-primary)">Yaşam Parkı</text>`;
+html+=`<text x="${ROOTX+ROOTW/2}" y="${rcy+16}" text-anchor="middle" font-family="var(--font-sans)" font-size="8.5" style="fill:var(--color-text-secondary)">103 bitki türü</text>`;
+
+// vertical spine from root
+html+=`<line x1="${ROOTX+ROOTW}" y1="${rcy0}" x2="${ROOTX+ROOTW}" y2="${rcyN}" stroke="var(--color-border-secondary)" stroke-width="0.5"/>`;
+
+for(const s of layout){
+  const cy=s.y+s.h/2;
+  // horizontal branch from spine
+  html+=`<line x1="${ROOTX+ROOTW}" y1="${cy}" x2="${SECX}" y2="${cy}" stroke="var(--color-border-secondary)" stroke-width="0.5"/>`;
+  // section box
+  html+=`<rect x="${SECX}" y="${s.y}" width="${SECW}" height="${s.h}" rx="4" fill="${s.l}" stroke="${s.c}" stroke-width="0.5"/>`;
+  html+=`<text x="${SECX+8}" y="${s.y+13}" font-family="var(--font-sans)" font-size="10" font-weight="500" fill="${s.c}">${s.name}</text>`;
+  html+=`<text x="${SECX+8}" y="${s.y+24}" font-family="var(--font-sans)" font-size="8.5" fill="${s.c}cc">Sorumlu: ${s.kisi} · ${s.p.length} bitki</text>`;
+  // connector to plant box
+  html+=`<line x1="${SECX+SECW}" y1="${cy}" x2="${PLTX}" y2="${cy}" stroke="${s.c}88" stroke-width="0.5" marker-end="url(#a)"/>`;
+  // plant box
+  html+=`<rect x="${PLTX}" y="${s.y}" width="${PLTW}" height="${s.h}" rx="4" fill="var(--color-background-primary)" stroke="${s.c}66" stroke-width="0.5"/>`;
+  // plant list header separator
+  html+=`<line x1="${PLTX+1}" y1="${s.y+HDR}" x2="${PLTX+PLTW-1}" y2="${s.y+HDR}" stroke="${s.c}55" stroke-width="0.5"/>`;
+  html+=`<text x="${PLTX+8}" y="${s.y+13}" font-family="var(--font-sans)" font-size="9" font-weight="500" fill="${s.c}">${s.name} bitki listesi</text>`;
+  for(let i=0;i<s.p.length;i++){
+    const py=s.y+HDR+i*LH+10;
+    html+=`<circle cx="${PLTX+10}" cy="${py-2}" r="1.5" fill="${s.c}88"/>`;
+    html+=`<text x="${PLTX+17}" y="${py}" font-family="var(--font-sans)" font-size="9" style="fill:var(--color-text-primary)">${s.p[i]}</text>`;
+  }
+}
+
+svg.innerHTML=html;
+</script>
